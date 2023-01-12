@@ -69,17 +69,25 @@ class Deck(object):
         except ValueError:
             print("Error removing card")
 
+def clean_path(path):
+    """
+    Accounts for input path which may contain whitespace
+    """
+    return ' '.join(path)
 
 #####################################
 
 if __name__ == '__main__':
-    # if len(sys.argv) != 2:
-    #     print("Please provide path to question file")
-    #     print("python flashcard.py pathtofile")
-    #     sys.exit(1)
+    if len(sys.argv) < 2:
+        print("Please provide path to question file")
+        print("Usage:")
+        print("python flashcard.py pathtofile")
+        sys.exit(1)
 
-    path = '/Users/jeremymiller/Data-Science-Vault/Computers/SICP/SICP Flash Cards.md'
-    app = FlashcardApp(path)
+    # path = clean_path(sys.argv[1:])
+    # path = '/Users/Jeremy/Data-Science-Vault/Computers/CS APP/Ch 1 A Tour of Computer Systems.md'
+    # path = '/Users/jeremymiller/Data-Science-Vault/Computers/SICP/SICP Flash Cards.md'
+    app = FlashcardApp(clean_path(sys.argv[1:]))
     app.setup()
     app.study()
 

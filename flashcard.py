@@ -2,28 +2,29 @@ import os
 import sys
 import random
 
+
 class FlashcardApp(object):
     def __init__(self, filepath) -> None:
         self.filepath = filepath
         self.deck = None
 
-    def setup(self):
+    def setup(self) -> None:
         deck = Deck(self.filepath)
         deck.load_deck()
         self.deck = deck
 
-    def study(self):
+    def study(self) -> None:
         # repl
         if len(self.deck.unseen_cards) == 0:
             print("Session complete")
             sys.exit(0)
         else:
             os.system('clear')
+            print("\n" * 10)
             card = self.deck.draw_card()
             _ = input(card.show_question())
-            print()
+            print("\n" * 5)
             _ = input(card.show_answer())
-            print()
             self.study()
 
 
@@ -37,6 +38,7 @@ class Card(object):
 
     def show_answer(self):
         return self.answer
+
 
 class Deck(object):
     def __init__(self, filepath, delimiter='#### ') -> None:
@@ -69,11 +71,12 @@ class Deck(object):
         except ValueError:
             print("Error removing card")
 
-def clean_path(path):
+def clean_path(path: list) -> str:
     """
     Accounts for input path which may contain whitespace
     """
     return ' '.join(path)
+
 
 #####################################
 
